@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+
+        <record model="gnuhealth.admin.profile" id="profile_recepcion">
+            <field name="code">RECEPCION</field>
+            <field name="name">Recepción</field>
+            <field name="category">Asistencial</field>
+            <field name="description">Recepcionista / admisión de pacientes.</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_recepcion_g_group_health_frontdesk">
+            <field name="profile" ref="profile_recepcion"/>
+            <field name="group" ref="health.group_health_frontdesk"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile" id="profile_medico">
+            <field name="code">MEDICO</field>
+            <field name="name">Médico/a</field>
+            <field name="category">Asistencial</field>
+            <field name="description">Profesional médico con acceso clínico e imágenes.</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_medico_g_group_health_doctor">
+            <field name="profile" ref="profile_medico"/>
+            <field name="group" ref="health.group_health_doctor"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_medico_g_group_health_imaging">
+            <field name="profile" ref="profile_medico"/>
+            <field name="group" ref="health_imaging.group_health_imaging"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_medico_g_group_health_imaging_admin">
+            <field name="profile" ref="profile_medico"/>
+            <field name="group" ref="health_imaging.group_health_imaging_admin"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_medico_g_group_imaging_orthanc">
+            <field name="profile" ref="profile_medico"/>
+            <field name="group" ref="health_orthanc.group_imaging_orthanc"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile" id="profile_enfermeria">
+            <field name="code">ENFERMERIA</field>
+            <field name="name">Enfermería</field>
+            <field name="category">Enfermería</field>
+            <field name="description">Personal de enfermería.</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_enfermeria_g_group_health_nursing">
+            <field name="profile" ref="profile_enfermeria"/>
+            <field name="group" ref="health.group_health_nursing"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile" id="profile_jefatura_enfermeria">
+            <field name="code">JEFATURA_ENFERMERIA</field>
+            <field name="name">Jefatura de enfermería</field>
+            <field name="category">Enfermería</field>
+            <field name="description">Jefatura de enfermería.</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_jefatura_enfermeria_g_group_health_nursing">
+            <field name="profile" ref="profile_jefatura_enfermeria"/>
+            <field name="group" ref="health.group_health_nursing"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_jefatura_enfermeria_g_group_health_nursing_admin">
+            <field name="profile" ref="profile_jefatura_enfermeria"/>
+            <field name="group" ref="health.group_health_nursing_admin"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile" id="profile_laboratorio">
+            <field name="code">LABORATORIO</field>
+            <field name="name">Laboratorio</field>
+            <field name="category">Técnico</field>
+            <field name="description">Personal de laboratorio clínico.</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_laboratorio_g_group_health_lab">
+            <field name="profile" ref="profile_laboratorio"/>
+            <field name="group" ref="health_lab.group_health_lab"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_laboratorio_g_group_health_lab_admin">
+            <field name="profile" ref="profile_laboratorio"/>
+            <field name="group" ref="health_lab.group_health_lab_admin"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile" id="profile_imagenes">
+            <field name="code">IMAGENES</field>
+            <field name="name">Diagnóstico por imágenes</field>
+            <field name="category">Técnico</field>
+            <field name="description">Radiología e imágenes médicas.</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_imagenes_g_group_health_doctor">
+            <field name="profile" ref="profile_imagenes"/>
+            <field name="group" ref="health.group_health_doctor"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_imagenes_g_group_health_imaging">
+            <field name="profile" ref="profile_imagenes"/>
+            <field name="group" ref="health_imaging.group_health_imaging"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_imagenes_g_group_health_imaging_admin">
+            <field name="profile" ref="profile_imagenes"/>
+            <field name="group" ref="health_imaging.group_health_imaging_admin"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_imagenes_g_group_imaging_orthanc">
+            <field name="profile" ref="profile_imagenes"/>
+            <field name="group" ref="health_orthanc.group_imaging_orthanc"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile" id="profile_odontologia">
+            <field name="code">ODONTOLOGIA</field>
+            <field name="name">Odontología</field>
+            <field name="category">Asistencial</field>
+            <field name="description">Odontología.</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_odontologia_g_group_health_dentist">
+            <field name="profile" ref="profile_odontologia"/>
+            <field name="group" ref="health_dentistry.group_health_dentist"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile" id="profile_trabajo_social">
+            <field name="code">TRABAJO_SOCIAL</field>
+            <field name="name">Trabajo social</field>
+            <field name="category">Asistencial</field>
+            <field name="description">Trabajo social.</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_trabajo_social_g_group_health_social_worker">
+            <field name="profile" ref="profile_trabajo_social"/>
+            <field name="group" ref="health.group_health_social_worker"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile" id="profile_facturacion">
+            <field name="code">FACTURACION</field>
+            <field name="name">Facturación</field>
+            <field name="category">Administrativo</field>
+            <field name="description">Facturación y cuentas.</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_facturacion_g_group_health_back_office">
+            <field name="profile" ref="profile_facturacion"/>
+            <field name="group" ref="health.group_health_back_office"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_facturacion_g_group_account">
+            <field name="profile" ref="profile_facturacion"/>
+            <field name="group" ref="account.group_account"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_facturacion_g_group_party_admin">
+            <field name="profile" ref="profile_facturacion"/>
+            <field name="group" ref="party.group_party_admin"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile" id="profile_farmacia">
+            <field name="code">FARMACIA</field>
+            <field name="name">Farmacia/depósito</field>
+            <field name="category">Farmacia</field>
+            <field name="description">Farmacia y depósito.</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_farmacia_g_group_stock">
+            <field name="profile" ref="profile_farmacia"/>
+            <field name="group" ref="stock.group_stock"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_farmacia_g_group_stock_admin">
+            <field name="profile" ref="profile_farmacia"/>
+            <field name="group" ref="stock.group_stock_admin"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_farmacia_g_group_product_admin">
+            <field name="profile" ref="profile_farmacia"/>
+            <field name="group" ref="product.group_product_admin"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_farmacia_g_group_purchase">
+            <field name="profile" ref="profile_farmacia"/>
+            <field name="group" ref="purchase.group_purchase"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile" id="profile_admin_salud">
+            <field name="code">ADMIN_SALUD</field>
+            <field name="name">Administración de salud</field>
+            <field name="category">Administrativo</field>
+            <field name="description">Gestión sanitaria y back office.</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_admin_salud_g_group_health_admin">
+            <field name="profile" ref="profile_admin_salud"/>
+            <field name="group" ref="health.group_health_admin"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_admin_salud_g_group_health_back_office">
+            <field name="profile" ref="profile_admin_salud"/>
+            <field name="group" ref="health.group_health_back_office"/>
+        </record>
+
+        <record model="gnuhealth.admin.profile-res.group" id="profile_admin_salud_g_group_party_admin">
+            <field name="profile" ref="profile_admin_salud"/>
+            <field name="group" ref="party.group_party_admin"/>
+        </record>
+
+    </data>
+</tryton>

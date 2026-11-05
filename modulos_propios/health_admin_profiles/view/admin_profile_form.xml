@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<form>
+    <group col="4" colspan="2" id="header">
+        <label name="code"/>
+        <field name="code"/>
+        <label name="name"/>
+        <field name="name"/>
+        <label name="category"/>
+        <field name="category"/>
+        <label name="active"/>
+        <field name="active"/>
+    </group>
+    <label name="description"/>
+    <field name="description" colspan="4"/>
+    <separator id="groups_separator" string="Grupos de permisos" colspan="4"/>
+    <field name="groups" colspan="4"/>
+    <button name="apply_to_users" string="Aplicar a usuarios" colspan="2"/>
+</form>

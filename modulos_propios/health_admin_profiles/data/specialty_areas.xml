@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+        <record model="gnuhealth.specialty.area" id="area_atencion_primaria">
+            <field name="code">ATENCION_PRIMARIA</field>
+            <field name="name">Atención Primaria y Medicina General</field>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_atencion_primaria_g_group_health_doctor">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="group" ref="health.group_health_doctor"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area" id="area_pediatria">
+            <field name="code">PEDIATRIA</field>
+            <field name="name">Pediatría y Neonatología</field>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_pediatria_g_group_health_doctor">
+            <field name="area" ref="area_pediatria"/>
+            <field name="group" ref="health.group_health_doctor"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_pediatria_g_group_health_pediatrics_admin">
+            <field name="area" ref="area_pediatria"/>
+            <field name="group" ref="health_pediatrics.group_health_pediatrics_admin"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area" id="area_mujer">
+            <field name="code">MUJER</field>
+            <field name="name">Ginecología, Obstetricia y Salud Sexual</field>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_mujer_g_group_health_doctor">
+            <field name="area" ref="area_mujer"/>
+            <field name="group" ref="health.group_health_doctor"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_mujer_g_group_health_gyneco_admin">
+            <field name="area" ref="area_mujer"/>
+            <field name="group" ref="health_gyneco.group_health_gyneco_admin"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area" id="area_cirugia">
+            <field name="code">CIRUGIA</field>
+            <field name="name">Cirugía y Especialidades Quirúrgicas</field>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_cirugia_g_group_health_doctor">
+            <field name="area" ref="area_cirugia"/>
+            <field name="group" ref="health.group_health_doctor"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_cirugia_g_group_health_surgery_admin">
+            <field name="area" ref="area_cirugia"/>
+            <field name="group" ref="health_surgery.group_health_surgery_admin"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_cirugia_g_group_health_inpatient_admin">
+            <field name="area" ref="area_cirugia"/>
+            <field name="group" ref="health_inpatient.group_health_inpatient_admin"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area" id="area_imagenes">
+            <field name="code">IMAGENES</field>
+            <field name="name">Diagnóstico por Imágenes</field>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_imagenes_g_group_health_doctor">
+            <field name="area" ref="area_imagenes"/>
+            <field name="group" ref="health.group_health_doctor"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_imagenes_g_group_health_imaging">
+            <field name="area" ref="area_imagenes"/>
+            <field name="group" ref="health_imaging.group_health_imaging"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_imagenes_g_group_health_imaging_admin">
+            <field name="area" ref="area_imagenes"/>
+            <field name="group" ref="health_imaging.group_health_imaging_admin"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_imagenes_g_group_imaging_orthanc">
+            <field name="area" ref="area_imagenes"/>
+            <field name="group" ref="health_orthanc.group_imaging_orthanc"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area" id="area_laboratorio">
+            <field name="code">LABORATORIO</field>
+            <field name="name">Laboratorio Clínico</field>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_laboratorio_g_group_health_lab">
+            <field name="area" ref="area_laboratorio"/>
+            <field name="group" ref="health_lab.group_health_lab"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_laboratorio_g_group_health_lab_admin">
+            <field name="area" ref="area_laboratorio"/>
+            <field name="group" ref="health_lab.group_health_lab_admin"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area" id="area_enfermeria">
+            <field name="code">ENFERMERIA</field>
+            <field name="name">Enfermería y Cuidados</field>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_enfermeria_g_group_health_nursing">
+            <field name="area" ref="area_enfermeria"/>
+            <field name="group" ref="health.group_health_nursing"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area" id="area_salud_mental">
+            <field name="code">SALUD_MENTAL</field>
+            <field name="name">Salud Mental y Neurociencias</field>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_salud_mental_g_group_health_doctor">
+            <field name="area" ref="area_salud_mental"/>
+            <field name="group" ref="health.group_health_doctor"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area" id="area_odontologia">
+            <field name="code">ODONTOLOGIA</field>
+            <field name="name">Odontología y Salud Oral</field>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_odontologia_g_group_health_dentist">
+            <field name="area" ref="area_odontologia"/>
+            <field name="group" ref="health_dentistry.group_health_dentist"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area" id="area_comunitaria">
+            <field name="code">COMUNITARIA</field>
+            <field name="name">Salud Pública, Trabajo Social y Comunidad</field>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_comunitaria_g_group_health_social_worker">
+            <field name="area" ref="area_comunitaria"/>
+            <field name="group" ref="health.group_health_social_worker"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area" id="area_ciencias_basicas">
+            <field name="code">CIENCIAS_BASICAS</field>
+            <field name="name">Ciencias Básicas, Docencia e Investigación</field>
+        </record>
+
+        <record model="gnuhealth.specialty.area-res.group" id="area_ciencias_basicas_g_group_health_lab">
+            <field name="area" ref="area_ciencias_basicas"/>
+            <field name="group" ref="health_lab.group_health_lab"/>
+        </record>
+    </data>
+</tryton>

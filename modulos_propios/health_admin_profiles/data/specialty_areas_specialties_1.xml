@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_01">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'ALTERNATIVE')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_02">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'CARDIO')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_03">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'DS')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_04">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'ENDOCRINO')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_05">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'FAMILY')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_06">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'GASTRO')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_07">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'GP')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_08">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'GERIATRICS')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_09">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'HEPATO')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_10">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'INFECTIOUS')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_11">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'INTEGRATIVE')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_12">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'INTERNAL')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_13">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'INTENSIVECARE')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_14">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'NEPHRO')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_15">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'NUTRITION')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_16">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'ONCO')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_17">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'PAIN')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_18">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'PALLIATIVE')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_19">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'PRIMARYCARE')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_20">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'PULMO')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_21">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'RHEUMATO')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_22">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'URGENTCARE')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_23">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'emg')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_atencion_primaria_s_24">
+            <field name="area" ref="area_atencion_primaria"/>
+            <field name="specialty" search="[('code', '=', 'EMERGENCY')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_pediatria_s_01">
+            <field name="area" ref="area_pediatria"/>
+            <field name="specialty" search="[('code', '=', 'PEDIATRICS')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_pediatria_s_02">
+            <field name="area" ref="area_pediatria"/>
+            <field name="specialty" search="[('code', '=', 'PEDIATRICSURG')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_pediatria_s_03">
+            <field name="area" ref="area_pediatria"/>
+            <field name="specialty" search="[('code', '=', 'NEONATO')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_pediatria_s_04">
+            <field name="area" ref="area_pediatria"/>
+            <field name="specialty" search="[('code', '=', 'PRIMARY-CHILD')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_mujer_s_01">
+            <field name="area" ref="area_mujer"/>
+            <field name="specialty" search="[('code', '=', 'GYN')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_mujer_s_02">
+            <field name="area" ref="area_mujer"/>
+            <field name="specialty" search="[('code', '=', 'OBS')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_mujer_s_03">
+            <field name="area" ref="area_mujer"/>
+            <field name="specialty" search="[('code', '=', 'OBGYN')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_mujer_s_04">
+            <field name="area" ref="area_mujer"/>
+            <field name="specialty" search="[('code', '=', 'PRIMARY-WOMAN')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_mujer_s_05">
+            <field name="area" ref="area_mujer"/>
+            <field name="specialty" search="[('code', '=', 'PRIMARY-FAMILYPLANNING')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_mujer_s_06">
+            <field name="area" ref="area_mujer"/>
+            <field name="specialty" search="[('code', '=', 'ANDROLOGY')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_cirugia_s_01">
+            <field name="area" ref="area_cirugia"/>
+            <field name="specialty" search="[('code', '=', 'ANESTHESIO')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_cirugia_s_02">
+            <field name="area" ref="area_cirugia"/>
+            <field name="specialty" search="[('code', '=', 'CARDIOSURG')]"/>
+        </record>
+
+        <record model="gnuhealth.specialty.area-specialty" id="area_cirugia_s_03">
+            <field name="area" ref="area_cirugia"/>
+            <field name="specialty" search="[('code', '=', 'CARDIOTHORAXSURG')]"/>
+        </record>
+    </data>
+</tryton>

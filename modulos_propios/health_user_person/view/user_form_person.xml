@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<data>
+    <xpath expr="//group[@id='header']" position="after">
+        <group col="2" colspan="4" id="person_group">
+            <label name="person"/>
+            <field name="person"/>
+        </group>
+    </xpath>
+</data>

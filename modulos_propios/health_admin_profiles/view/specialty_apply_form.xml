@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<form>
+    <group col="4" colspan="2" id="header">
+        <label name="professional"/>
+        <field name="professional" readonly="1"/>
+        <label name="user"/>
+        <field name="user" readonly="1"/>
+    </group>
+    <label name="areas"/>
+    <field name="areas" readonly="1"/>
+    <label name="groups"/>
+    <field name="groups" readonly="1"/>
+    <label name="summary"/>
+    <field name="summary" readonly="1"/>
+</form>

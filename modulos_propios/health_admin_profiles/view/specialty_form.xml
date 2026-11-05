@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<data>
+    <xpath expr="//field[@name='code']" position="after">
+        <label name="area"/>
+        <field name="area" readonly="1"/>
+    </xpath>
+</data>

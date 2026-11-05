@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="specialty_area_view_form">
+            <field name="model">gnuhealth.specialty.area</field>
+            <field name="type">form</field>
+            <field name="name">specialty_area_form</field>
+        </record>
+        <record model="ir.ui.view" id="specialty_area_view_tree">
+            <field name="model">gnuhealth.specialty.area</field>
+            <field name="type">tree</field>
+            <field name="name">specialty_area_tree</field>
+        </record>
+        <record model="ir.ui.view" id="specialty_apply_start_view">
+            <field name="model">gnuhealth.specialty.apply.start</field>
+            <field name="type">form</field>
+            <field name="name">specialty_apply_form</field>
+        </record>
+        <record model="ir.ui.view" id="healthprofessional_view_form_admin">
+            <field name="model">gnuhealth.healthprofessional</field>
+            <field name="inherit" ref="health.gnuhealth_healthprofessional_view"/>
+            <field name="name">healthprofessional_form</field>
+        </record>
+        <record model="ir.ui.view" id="specialty_view_form_area">
+            <field name="model">gnuhealth.specialty</field>
+            <field name="inherit" ref="health.gnuhealth_specialty_view"/>
+            <field name="name">specialty_form</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_specialty_area">
+            <field name="name">Áreas de especialidad</field>
+            <field name="res_model">gnuhealth.specialty.area</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_specialty_area_list_view">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="specialty_area_view_tree"/>
+            <field name="act_window" ref="act_specialty_area"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_specialty_area_form_view">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="specialty_area_view_form"/>
+            <field name="act_window" ref="act_specialty_area"/>
+        </record>
+
+        <record model="ir.action.wizard" id="act_specialty_apply">
+            <field name="name">Aplicar permisos de la especialidad</field>
+            <field name="wiz_name">gnuhealth.specialty.apply</field>
+            <field name="model">gnuhealth.healthprofessional</field>
+        </record>
+
+        <menuitem name="Áreas de especialidad" id="menu_specialty_area"
+            parent="health.gnuhealth_conf_misc" action="act_specialty_area" sequence="90"/>
+    </data>
+</tryton>

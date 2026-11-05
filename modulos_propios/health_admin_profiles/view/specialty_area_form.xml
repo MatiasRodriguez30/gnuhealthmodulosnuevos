@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<form>
+    <group col="4" colspan="2" id="header">
+        <label name="code"/>
+        <field name="code"/>
+        <label name="name"/>
+        <field name="name"/>
+    </group>
+    <separator id="groups_separator" string="Grupos por defecto" colspan="4"/>
+    <field name="groups" colspan="4"/>
+    <separator id="specialties_separator" string="Especialidades" colspan="4"/>
+    <field name="specialties" colspan="4"/>
+</form>

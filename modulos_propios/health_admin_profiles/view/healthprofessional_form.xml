@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<data>
+    <xpath expr="//field[@name='specialties']" position="after">
+        <button name="apply_specialty_permissions"
+            string="Aplicar permisos de la especialidad" colspan="4"/>
+    </xpath>
+</data>

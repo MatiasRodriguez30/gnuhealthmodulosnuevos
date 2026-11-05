@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<form>
+    <label name="profile"/>
+    <field name="profile" readonly="1"/>
+    <label name="summary"/>
+    <field name="summary" readonly="1"/>
+</form>

@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+
+        <record model="ir.model.access" id="access_gnuhealth_admin_profile_read">
+            <field name="model" search="[('model', '=', 'gnuhealth.admin.profile')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_gnuhealth_admin_profile_res_group_read">
+            <field name="model" search="[('model', '=', 'gnuhealth.admin.profile-res.group')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_gnuhealth_admin_profile_log_read">
+            <field name="model" search="[('model', '=', 'gnuhealth.admin.profile.log')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_gnuhealth_admin_profile_log_res_group_added_read">
+            <field name="model" search="[('model', '=', 'gnuhealth.admin.profile.log-res.group.added')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_gnuhealth_admin_profile_log_res_group_removed_read">
+            <field name="model" search="[('model', '=', 'gnuhealth.admin.profile.log-res.group.removed')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_gnuhealth_specialty_area_read">
+            <field name="model" search="[('model', '=', 'gnuhealth.specialty.area')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_gnuhealth_specialty_area_res_group_read">
+            <field name="model" search="[('model', '=', 'gnuhealth.specialty.area-res.group')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_gnuhealth_specialty_area_specialty_read">
+            <field name="model" search="[('model', '=', 'gnuhealth.specialty.area-specialty')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_gnuhealth_admin_profile_admin">
+            <field name="model" search="[('model', '=', 'gnuhealth.admin.profile')]"/>
+            <field name="group" ref="res.group_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.access" id="access_gnuhealth_admin_profile_res_group_admin">
+            <field name="model" search="[('model', '=', 'gnuhealth.admin.profile-res.group')]"/>
+            <field name="group" ref="res.group_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.access" id="access_gnuhealth_specialty_area_admin">
+            <field name="model" search="[('model', '=', 'gnuhealth.specialty.area')]"/>
+            <field name="group" ref="res.group_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.access" id="access_gnuhealth_specialty_area_res_group_admin">
+            <field name="model" search="[('model', '=', 'gnuhealth.specialty.area-res.group')]"/>
+            <field name="group" ref="res.group_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.access" id="access_gnuhealth_specialty_area_specialty_admin">
+            <field name="model" search="[('model', '=', 'gnuhealth.specialty.area-specialty')]"/>
+            <field name="group" ref="res.group_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+
+
+
+        <record model="ir.model.access" id="access_gnuhealth_admin_profile_apply_start_admin">
+            <field name="model" search="[('model', '=', 'gnuhealth.admin.profile.apply.start')]"/>
+            <field name="group" ref="res.group_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.access" id="access_gnuhealth_specialty_apply_start_admin">
+            <field name="model" search="[('model', '=', 'gnuhealth.specialty.apply.start')]"/>
+            <field name="group" ref="res.group_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+    </data>
+</tryton>

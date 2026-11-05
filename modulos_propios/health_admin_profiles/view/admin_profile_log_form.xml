@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<form>
+    <group col="4" colspan="2" id="header">
+        <label name="date"/>
+        <field name="date"/>
+        <label name="user"/>
+        <field name="user"/>
+        <label name="action"/>
+        <field name="action"/>
+        <label name="old_profile"/>
+        <field name="old_profile"/>
+        <label name="new_profile"/>
+        <field name="new_profile"/>
+    </group>
+    <separator id="groups_added_separator" string="Grupos agregados" colspan="4"/>
+    <field name="groups_added" colspan="4"/>
+    <separator id="groups_removed_separator" string="Grupos quitados" colspan="4"/>
+    <field name="groups_removed" colspan="4"/>
+</form>
