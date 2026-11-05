@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<tryton>
+    <data grouped="1">
+        <record model="ir.message" id="msg_documento_incompleto">
+            <field name="text">Cargue el tipo y el número de documento juntos.</field>
+        </record>
+    </data>
+</tryton>

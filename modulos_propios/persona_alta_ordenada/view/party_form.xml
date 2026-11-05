@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<data>
+    <xpath expr="/form/group[@id='grupo_datos_obligatorios']" position="replace"/>
+    <xpath expr="/form/group[@id='grupo_tipo_sangre']" position="replace"/>
+    <xpath expr="/form/notebook" position="before">
+        <group col="6" colspan="6" id="grupo_datos_alta" string="Datos de alta">
+            <group col="2" colspan="2" id="grupo_alta_documento" string="Documento" yalign="0">
+                <label name="documento_tipo"/>
+                <field name="documento_tipo"/>
+                <label name="documento_numero"/>
+                <field name="documento_numero"/>
+            </group>
+            <group col="2" colspan="2" id="grupo_alta_contacto" string="Contacto" yalign="0">
+                <label name="email_principal"/>
+                <field name="email_principal"/>
+                <label name="telefono_principal"/>
+                <field name="telefono_principal"/>
+            </group>
+            <group col="2" colspan="2" id="grupo_alta_domicilio" string="Domicilio" yalign="0">
+                <label name="domicilio_calle"/>
+                <field name="domicilio_calle" widget="char"/>
+                <label name="domicilio_ciudad"/>
+                <field name="domicilio_ciudad"/>
+            </group>
+            <group col="2" colspan="2" id="grupo_alta_sangre" string="Grupo sanguíneo" yalign="0">
+                <label name="tipo_sangre"/>
+                <field name="tipo_sangre"/>
+                <label name="factor_rh"/>
+                <field name="factor_rh"/>
+            </group>
+        </group>
+    </xpath>
+</data>

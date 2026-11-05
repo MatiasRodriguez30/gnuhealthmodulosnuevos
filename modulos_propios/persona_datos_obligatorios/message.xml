@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<tryton>
+    <data grouped="1">
+        <record model="ir.message" id="msg_persona_name_required">
+            <field name="text">El nombre es obligatorio para dar de alta una persona.</field>
+        </record>
+        <record model="ir.message" id="msg_persona_lastname_required">
+            <field name="text">El apellido es obligatorio para dar de alta una persona.</field>
+        </record>
+        <record model="ir.message" id="msg_persona_email_required">
+            <field name="text">Debe cargar al menos un correo electrónico (email) para la persona.</field>
+        </record>
+        <record model="ir.message" id="msg_persona_phone_required">
+            <field name="text">Debe cargar al menos un teléfono o teléfono móvil para la persona.</field>
+        </record>
+        <record model="ir.message" id="msg_persona_address_required">
+            <field name="text">Debe cargar al menos una dirección con calle para el domicilio de la persona.</field>
+        </record>
+    </data>
+</tryton>

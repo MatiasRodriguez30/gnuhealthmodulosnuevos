@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="party_view_form_alta_ordenada">
+            <field name="model">party.party</field>
+            <field name="inherit" ref="party.party_view_form"/>
+            <field name="priority" eval="100"/>
+            <field name="name">party_form</field>
+        </record>
+    </data>
+</tryton>

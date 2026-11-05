@@ -19,9 +19,9 @@ GNU Health 5.0 / Tryton 7.0.
 | `persona_tipos_documento` | Ya existía | Tipos de documento (DNI, CUIT, etc.). |
 | `persona_alta_ordenada` | Ya existía | Bloque de “Datos de alta” en el formulario de persona. |
 
-Los dos primeros son los que hicimos en este trabajo y son los que están
-incluidos en este repositorio. Los cuatro `persona_*` ya existían antes y **no**
-están incluidos acá; si la VM de prácticas no los tiene, pedímelos y los agrego.
+Los seis módulos están incluidos en este repositorio. Los dos primeros son
+los que hicimos en este trabajo; los cuatro `persona_*` ya existían antes y se
+incluyen para que la VM de prácticas quede completa.
 
 ---
 
@@ -109,13 +109,6 @@ REPO_DESTINO=/media/sf_proyecto_equipo/modulos_propios
 scp -P 2222 -r \
   /srv/datos/gnuhealth/proyecto_equipo/modulos_propios/health_admin_profiles \
   /srv/datos/gnuhealth/proyecto_equipo/modulos_propios/health_user_person \
-  gnuhealth@192.168.1.44:"$REPO_DESTINO/"
-```
-
-Si vas a llevar también los módulos de persona:
-
-```bash
-scp -P 2222 -r \
   /srv/datos/gnuhealth/proyecto_equipo/modulos_propios/persona_datos_obligatorios \
   /srv/datos/gnuhealth/proyecto_equipo/modulos_propios/persona_tipo_sangre \
   /srv/datos/gnuhealth/proyecto_equipo/modulos_propios/persona_tipos_documento \
@@ -125,7 +118,7 @@ scp -P 2222 -r \
 
 ### Opción C: usar el paquete ya preparado
 
-En esta misma carpeta dejé un paquete con los dos módulos nuevos, sin
+En esta misma carpeta dejé un paquete con los seis módulos, sin
 `__pycache__` ni logs de verificación:
 
 ```text
@@ -137,6 +130,10 @@ Contiene:
 ```text
 health_admin_profiles/
 health_user_person/
+persona_datos_obligatorios/
+persona_tipo_sangre/
+persona_tipos_documento/
+persona_alta_ordenada/
 ```
 
 Para descomprimirlo en la VM:
@@ -304,9 +301,9 @@ Debe mostrar `activated` para los dos módulos.
 ├── .gitignore
 └── modulos_propios/
     ├── health_admin_profiles/
-    └── health_user_person/
+    ├── health_user_person/
+    ├── persona_datos_obligatorios/
+    ├── persona_tipo_sangre/
+    ├── persona_tipos_documento/
+    └── persona_alta_ordenada/
 ```
-
-Los módulos `persona_datos_obligatorios`, `persona_tipo_sangre`,
-`persona_tipos_documento` y `persona_alta_ordenada` no están incluidos porque
-ya existían antes de este trabajo. Si los necesitás, se pueden agregar.

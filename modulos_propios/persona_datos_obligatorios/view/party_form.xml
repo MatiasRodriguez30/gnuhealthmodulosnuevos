@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<data>
+    <xpath expr="/form/notebook" position="before">
+        <group col="4" colspan="6" id="grupo_datos_obligatorios" string="Datos Principales (Contacto y Domicilio)">
+            <label name="email_principal"/>
+            <field name="email_principal"/>
+            <label name="telefono_principal"/>
+            <field name="telefono_principal"/>
+            <label name="domicilio_calle"/>
+            <field name="domicilio_calle"/>
+            <label name="domicilio_ciudad"/>
+            <field name="domicilio_ciudad"/>
+        </group>
+    </xpath>
+</data>
