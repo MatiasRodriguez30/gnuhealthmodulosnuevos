@@ -292,6 +292,11 @@ contra la base:
 - `health_user_person`: la búsqueda por Persona resuelve "sin persona" y
   "con persona".
 - Ambos módulos tienen pruebas en `tests/` (`ModuleTestCase`).
+- "Historial de perfiles" ya no da `KeyError: 'datetime'` en el cliente
+  Tryton 7.0: la lista muestra la fecha y la hora en dos columnas (el cliente
+  no tiene widget de fecha y hora en listas). Si ya estaba instalado:
+  reemplazá la carpeta, actualizá con `-u health_admin_profiles`, reiniciá el
+  servidor y cerrá y abrí el cliente.
 
 Si ya tenías una versión anterior instalada: reemplazá las carpetas (paso 5),
 actualizá con el paso 7 y reiniciá (paso 8).
