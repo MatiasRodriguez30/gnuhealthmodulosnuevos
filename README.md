@@ -1,299 +1,277 @@
-# Cómo llevar los módulos nuevos a la VM de prácticas
+# Módulos nuevos para GNU Health 5.0 (Tryton 7.0)
 
-Este README explica cómo copiar y activar los módulos que hicimos en la VM de
-GNU Health 5.0 / Tryton 7.0.
+Guía para instalar estos seis módulos en una VM con GNU Health 5.0, por
+ejemplo **la VM del hospital**. Está escrita para seguirla de arriba hacia abajo
+copiando los comandos. Lo que cambia de una VM a otra (rutas, base, servicio)
+se define una sola vez en el paso 2.
 
-> Importante: los comandos de activación van **solo contra `bd_desarrollo`**.
-> No ejecutar nada sobre `health50` sin autorización.
-
----
-
-## 1. Qué módulos hay que llevar
-
-| Módulo | Estado | Qué hace |
-|---|---|---|
-| `health_admin_profiles` | Nuevo | Perfiles de puesto, áreas de especialidad y botón de permisos en la ficha del profesional. |
-| `health_user_person` | Nuevo (versión simplificada) | Agrega el campo **Persona** en el usuario para buscar/vincular una persona. El alta se hace con el **“Crear…”** estándar de Tryton. |
-| `persona_datos_obligatorios` | Ya existía | Exige nombre, apellido, email, teléfono y domicilio al crear una persona. |
-| `persona_tipo_sangre` | Ya existía | Grupo y factor Rh en la persona. |
-| `persona_tipos_documento` | Ya existía | Tipos de documento (DNI, CUIT, etc.). |
-| `persona_alta_ordenada` | Ya existía | Bloque de “Datos de alta” en el formulario de persona. |
-
-Los seis módulos están incluidos en este repositorio. Los dos primeros son
-los que hicimos en este trabajo; los cuatro `persona_*` ya existían antes y se
-incluyen para que la VM de prácticas quede completa.
+> **Importante**
+> - Probá siempre primero en una **base de pruebas**, nunca directo en la base
+>   que se usa con pacientes reales.
+> - Hacé el **backup del paso 4** antes de activar nada.
+> - No hay contraseñas en esta guía ni en el código.
 
 ---
 
-## 2. Estructura de carpetas esperada
+## Resumen (checklist)
 
-Dentro del repositorio del proyecto:
-
-```text
-proyecto_equipo/
-├── modulos_propios/
-│   ├── health_admin_profiles/
-│   │   ├── __init__.py
-│   │   ├── tryton.cfg
-│   │   ├── admin_profile.py
-│   │   ├── specialty_area.py
-│   │   ├── health_admin_profiles.xml
-│   │   ├── health_specialty_areas.xml
-│   │   ├── data/
-│   │   │   ├── profiles.xml
-│   │   │   ├── specialty_areas.xml
-│   │   │   ├── specialty_areas_specialties_1.xml
-│   │   │   └── specialty_areas_specialties_2.xml
-│   │   ├── security/
-│   │   │   └── access_rights.xml
-│   │   └── view/
-│   │       ├── admin_profile_form.xml
-│   │       ├── admin_profile_tree.xml
-│   │       ├── admin_profile_log_form.xml
-│   │       ├── admin_profile_log_tree.xml
-│   │       ├── admin_profile_apply_form.xml
-│   │       ├── user_form.xml
-│   │       ├── specialty_area_form.xml
-│   │       ├── specialty_area_tree.xml
-│   │       ├── specialty_apply_form.xml
-│   │       ├── healthprofessional_form.xml
-│   │       └── specialty_form.xml
-│   │
-│   ├── health_user_person/
-│   │   ├── __init__.py
-│   │   ├── tryton.cfg
-│   │   ├── user_person.py
-│   │   ├── user_person.xml
-│   │   └── view/
-│   │       └── user_form_person.xml
-│   │
-│   ├── persona_datos_obligatorios/
-│   ├── persona_tipo_sangre/
-│   ├── persona_tipos_documento/
-│   └── persona_alta_ordenada/
-│
-└── ... (Fede/, Mati/, Gonza/, Lea/, Jonny/, etc.)
-```
-
-Cada carpeta de módulo **debe** tener su `tryton.cfg`. No metas carpetas que no
-sean módulos dentro de `modulos_propios/`.
+1. Leer qué cambia en el sistema (paso 1).
+2. Completar los datos de la VM (paso 2).
+3. Verificar que estén los módulos de GNU Health necesarios (paso 3).
+4. Hacer backup de la base (paso 4).
+5. Descargar y descomprimir los módulos (paso 5).
+6. Enlazarlos en Tryton (paso 6).
+7. Activarlos en la base de pruebas (paso 7).
+8. Reiniciar el servidor (paso 8).
+9. Verificar y probar en la web (paso 9).
 
 ---
 
-## 3. Copiar los módulos a la VM
+## 1. Qué módulos son y qué cambian
 
-### Opción A: la VM ya ve el repo por carpeta compartida
+| Módulo | Qué hace |
+|---|---|
+| `health_admin_profiles` | Perfiles de puesto (Recepción, Médico/a, Enfermería, etc.) que asignan grupos de permisos; áreas de especialidad; historial de cambios; botón "Aplicar permisos de la especialidad" en el profesional. |
+| `health_user_person` | Campo **Persona** en la ficha del usuario para vincularlo con una persona. |
+| `persona_datos_obligatorios` | Al **crear** una persona exige nombre, apellido, email, teléfono y domicilio. |
+| `persona_tipo_sangre` | Grupo sanguíneo y factor Rh en la persona (se copia al paciente si el paciente no lo tiene). |
+| `persona_tipos_documento` | Tipos de documento DNI, CUIT, CUIL, LE, LC, pasaporte y cédula, y carga rápida de tipo y número. |
+| `persona_alta_ordenada` | Bloque "Datos de alta" (Documento, Contacto, Domicilio, Grupo sanguíneo) en el formulario de persona. |
 
-En este entorno el repo está en:
+**Cambio de comportamiento a avisar al equipo:** con `persona_datos_obligatorios`
+activo, **toda persona nueva** (incluidos pacientes) necesita apellido, email,
+teléfono y domicilio con calle para poder guardarse. Las personas que ya existen
+se pueden seguir editando sin completar esos datos.
 
-- Host: `/srv/datos/gnuhealth/proyecto_equipo`
-- VM: `/media/sf_proyecto_equipo`
-
-Si en la VM de prácticas la ruta es otra, ajustá `REPO_VM`.
-
-```bash
-REPO_VM=/media/sf_proyecto_equipo
-ls "$REPO_VM/modulos_propios"
-```
-
-Si los módulos ya están en el repo, no hay que copiar nada: la VM los ve por la
-carpeta compartida.
-
-### Opción B: copiar desde el host a la VM por SSH
-
-Desde el host, con acceso SSH a la VM:
-
-```bash
-REPO_DESTINO=/media/sf_proyecto_equipo/modulos_propios
-
-scp -P 2222 -r \
-  /srv/datos/gnuhealth/proyecto_equipo/modulos_propios/health_admin_profiles \
-  /srv/datos/gnuhealth/proyecto_equipo/modulos_propios/health_user_person \
-  /srv/datos/gnuhealth/proyecto_equipo/modulos_propios/persona_datos_obligatorios \
-  /srv/datos/gnuhealth/proyecto_equipo/modulos_propios/persona_tipo_sangre \
-  /srv/datos/gnuhealth/proyecto_equipo/modulos_propios/persona_tipos_documento \
-  /srv/datos/gnuhealth/proyecto_equipo/modulos_propios/persona_alta_ordenada \
-  gnuhealth@192.168.1.44:"$REPO_DESTINO/"
-```
-
-### Opción C: usar el paquete ya preparado
-
-En esta misma carpeta dejé un paquete con los seis módulos, sin
-`__pycache__` ni logs de verificación:
-
-```text
-modulos_nuevos.tar.gz
-```
-
-Contiene:
-
-```text
-health_admin_profiles/
-health_user_person/
-persona_datos_obligatorios/
-persona_tipo_sangre/
-persona_tipos_documento/
-persona_alta_ordenada/
-```
-
-Para descomprimirlo en la VM:
-
-```bash
-cd /media/sf_proyecto_equipo/modulos_propios
-tar -xzf /ruta/a/modulos_nuevos.tar.gz
-```
-
-### Opción D: copiar a otro repo
-
-Si me pasás otro repositorio, copio las carpetas respetando esta estructura:
-
-```text
-<otro-repo>/modulos_propios/health_admin_profiles/
-<otro-repo>/modulos_propios/health_user_person/
-```
-
-No hace falta que el repo tenga git en la VM. En el host sí se puede usar git
-para clonar/actualizar y después copiar por la carpeta compartida o por `scp`.
+**Dependencias.** `health_admin_profiles` necesita estos módulos de GNU Health:
+`health`, `health_lab`, `health_imaging`, `health_orthanc`, `health_dentistry`,
+`health_gyneco`, `health_pediatrics`, `health_surgery`, `health_inpatient`,
+`account`, `stock` y `purchase`. Los demás solo necesitan `health` y `party`.
+Si alguno no está activado, la activación (paso 7) lo activa, siempre que su
+código exista en la VM (eso se verifica en el paso 3).
 
 ---
 
-## 4. Enlazar los módulos en Tryton
+## 2. Datos de la VM
 
-Dentro de la VM:
+Todos los comandos siguientes se corren **dentro de la VM**, con el usuario que
+administra GNU Health (en la VM de prácticas es `gnuhealth`).
+
+Averiguá cada dato con estos comandos:
 
 ```bash
-TRYTON_MODULES=/opt/gnuhealth/his-50/venv/lib/python3.11/site-packages/trytond/modules
-REPO_VM=/media/sf_proyecto_equipo
+# Comando con el que corre el servidor Tryton (muestra el venv y, si figura, el -c del config)
+ps -eo args | grep "[b]in/trytond"
 
-for m in health_admin_profiles health_user_person \n         persona_datos_obligatorios persona_tipo_sangre \n         persona_tipos_documento persona_alta_ordenada; do
-    if [ ! -e "$TRYTON_MODULES/$m" ]; then
-        ln -s "$REPO_VM/modulos_propios/$m" "$TRYTON_MODULES/$m"
+# Configuraciones de Tryton disponibles
+ls /opt/gnuhealth/*/etc/trytond.conf
+
+# Bases de datos (elegí la de PRUEBAS)
+psql -l
+
+# Nombre del servicio del servidor
+systemctl list-units --type=service | grep -iE "gnuhealth|tryton"
+```
+
+Después completá y pegá este bloque (los valores de ejemplo son los de la VM de
+prácticas):
+
+```bash
+VENV=/opt/gnuhealth/his-50/venv
+CONF=/opt/gnuhealth/his-50/etc/trytond.conf
+DB=bd_desarrollo
+SERVICIO=gnuhealth.service
+MODULOS_DIR="$HOME/modulos_propios"
+
+TRYTON_ADMIN="$VENV/bin/trytond-admin"
+TRYTON_MODULES="$("$VENV/bin/python" -c 'import os, trytond.modules as m; print(os.path.dirname(m.__file__))')"
+MODULOS="health_admin_profiles health_user_person persona_datos_obligatorios persona_tipo_sangre persona_tipos_documento persona_alta_ordenada"
+
+echo "Módulos de Tryton en: $TRYTON_MODULES"
+```
+
+`MODULOS_DIR` es la carpeta donde van a quedar los módulos. Si la VM ya tiene
+una carpeta de módulos propios (por ejemplo, un repo compartido con
+`modulos_propios/`), usá esa.
+
+---
+
+## 3. Verificar dependencias
+
+```bash
+for m in health health_lab health_imaging health_orthanc health_dentistry \
+         health_gyneco health_pediatrics health_surgery health_inpatient \
+         account stock purchase party; do
+    if [ -d "$TRYTON_MODULES/$m" ]; then echo "ok    $m"; else echo "FALTA $m"; fi
+done
+```
+
+Si aparece alguna **FALTA**, no sigas: ese módulo de GNU Health no está
+instalado en la VM y lo tiene que instalar quien la administre.
+
+Comprobá también quién es dueño de la carpeta de módulos de Tryton (hace falta
+para el paso 6):
+
+```bash
+stat -c "dueño: %U" "$TRYTON_MODULES"; whoami
+```
+
+---
+
+## 4. Backup de la base (obligatorio)
+
+```bash
+pg_dump -Fc -d "$DB" -f "$HOME/backup_${DB}_$(date +%F_%H%M).dump"
+ls -lh "$HOME"/backup_"$DB"_*.dump
+```
+
+Si algo sale mal, quien administre la VM puede restaurarla con `pg_restore`
+en una base nueva. No sigas si el backup no se generó.
+
+---
+
+## 5. Descargar los módulos
+
+**Opción A: con git**
+
+```bash
+cd "$HOME"
+git clone https://github.com/MatiasRodriguez30/gnuhealthmodulosnuevos.git
+mkdir -p "$MODULOS_DIR"
+cp -r gnuhealthmodulosnuevos/modulos_propios/* "$MODULOS_DIR"/
+```
+
+**Opción B: sin git (descarga del paquete)**
+
+```bash
+mkdir -p "$MODULOS_DIR" && cd "$MODULOS_DIR"
+curl -L -o modulos_nuevos.tar.gz \
+  https://github.com/MatiasRodriguez30/gnuhealthmodulosnuevos/raw/main/modulos_nuevos.tar.gz
+tar -xzf modulos_nuevos.tar.gz && rm modulos_nuevos.tar.gz
+```
+
+Si la VM no tiene internet, descargá `modulos_nuevos.tar.gz` desde la página
+del repositorio en otra PC y copialo a la VM (con `scp`, un pendrive o la
+carpeta compartida), y después descomprimilo con el `tar` de arriba.
+
+**Si ya había una versión anterior de estos módulos**, guardala antes de
+reemplazarla (por ejemplo, `mv "$MODULOS_DIR/health_admin_profiles" "$HOME/health_admin_profiles.anterior"`).
+
+Comprobá que quedaron los seis, cada uno con su `tryton.cfg`:
+
+```bash
+for m in $MODULOS; do
+    if [ -f "$MODULOS_DIR/$m/tryton.cfg" ]; then echo "ok    $m"; else echo "FALTA $m"; fi
+done
+```
+
+---
+
+## 6. Enlazar los módulos en Tryton
+
+Tryton solo ve los módulos que están en su carpeta de módulos. Se enlazan (no se
+copian), así una actualización solo requiere reemplazar la carpeta:
+
+```bash
+for m in $MODULOS; do
+    if [ -e "$TRYTON_MODULES/$m" ]; then
+        echo "ya existe: $m -> $(readlink "$TRYTON_MODULES/$m")"
+    else
+        ln -s "$MODULOS_DIR/$m" "$TRYTON_MODULES/$m" && echo "enlazado: $m"
     fi
 done
 ```
 
-Verificar:
-
-```bash
-ls -l "$TRYTON_MODULES/health_admin_profiles" "$TRYTON_MODULES/health_user_person"
-```
-
-El enlace tiene que apuntar a la carpeta real del módulo. No uses `ln -f` si ya
-existe: primero revisá qué hay.
-
-En una VM nueva (por ejemplo, la del hospital) revisá quién es dueño de la
-carpeta de módulos de Tryton: si no es el usuario con el que trabajás, el
-enlace lo tiene que crear quien administre la VM.
+Si el paso 3 mostró que el dueño de la carpeta de módulos **no** es tu usuario,
+este paso lo tiene que hacer quien administre la VM. Si algún módulo dice "ya
+existe", revisá a dónde apunta antes de tocarlo; no uses `ln -f`.
 
 ---
 
-## 5. Activar en la base de pruebas
-
-Siempre en la base de pruebas (`bd_desarrollo` en la VM de prácticas; en otra
-VM, cambiá `-d` por el nombre de su base de pruebas):
+## 7. Activar en la base de pruebas
 
 ```bash
-TRYTON_ADMIN=/opt/gnuhealth/his-50/venv/bin/trytond-admin
-CONF=/opt/gnuhealth/his-50/etc/trytond.conf
-
-$TRYTON_ADMIN -c "$CONF" -d bd_desarrollo \
-  -u health_admin_profiles --activate-dependencies < /dev/null
-
-$TRYTON_ADMIN -c "$CONF" -d bd_desarrollo \
-  -u health_user_person --activate-dependencies < /dev/null
+"$TRYTON_ADMIN" -c "$CONF" -d "$DB" -u $MODULOS --activate-dependencies \
+  < /dev/null > "$HOME/activacion_modulos.log" 2>&1
+echo "código de salida: $?"
 ```
 
-`trytond-admin` puede no imprimir nada si termina bien. El código de salida
-debe ser `0`.
+- Código **0**: terminó bien (es normal que el log quede vacío o con avisos).
+- Otro código: mirá el final del log con `tail -40 "$HOME/activacion_modulos.log"`.
 
-Si vas a activar también los módulos de persona:
+Confirmá el estado en la base:
 
 ```bash
-for m in persona_datos_obligatorios persona_tipo_sangre \
-         persona_tipos_documento persona_alta_ordenada; do
-    $TRYTON_ADMIN -c "$CONF" -d bd_desarrollo \
-      -u "$m" --activate-dependencies < /dev/null
-done
+psql -d "$DB" -c "select name, state from ir_module where name in ('health_admin_profiles','health_user_person','persona_datos_obligatorios','persona_tipo_sangre','persona_tipos_documento','persona_alta_ordenada') order by name;"
 ```
+
+Los seis tienen que decir `activated`.
 
 ---
 
-## 6. Reiniciar el servidor
+## 8. Reiniciar el servidor
 
-El servidor en ejecución **no recarga el código Python**. Después de copiar o
-actualizar los módulos:
-
-```bash
-sudo systemctl restart gnuhealth.service
-```
-
-Luego, en la web:
-
-1. Entrar a `http://192.168.1.44:8400/`.
-2. Elegir la base **`bd_desarrollo`**.
-3. Recargar con `Ctrl+F5`.
-
----
-
-## 7. Dónde se ve cada cosa
-
-### `health_admin_profiles`
-
-- **Perfiles de puesto**: `Health` → `Configuration` → **Perfiles de puesto**.
-- **Historial de perfiles**: `Health` → `Configuration` → **Historial de perfiles**.
-- **Áreas de especialidad**: `Health` → `Configuration` → `Misc` → **Áreas de especialidad**.
-- **Perfil en el usuario**: abrir un usuario → solapa **Access Permissions** →
-  campo **Perfil de puesto** y **Grupos extra**.
-- **Botón del profesional**: `Health` → `Configuration` → `Health Professionals`
-  → abrir un profesional → **“Aplicar permisos de la especialidad”**.
-
-### `health_user_person`
-
-- Abrir un usuario.
-- Arriba aparece **Persona**.
-- La lupa busca personas existentes.
-- El desplegable **“Crear…”** abre el formulario estándar de persona.
-- Al guardar, la persona queda vinculada al usuario por `internal_user`.
-
----
-
-## 8. Verificación rápida
-
-Después de activar, se puede comprobar que el módulo quedó activado con:
+El servidor en ejecución **no carga el código nuevo** hasta reiniciarlo:
 
 ```bash
-/opt/gnuhealth/his-50/venv/bin/python -I -B - <<'PY'
-from trytond.config import config
-config.update_etc("/opt/gnuhealth/his-50/etc/trytond.conf")
-from trytond.pool import Pool
-from trytond.transaction import Transaction
-DB = "bd_desarrollo"
-pool = Pool(DB); pool.init()
-with Transaction().start(DB, 1, context={"company": 1}, readonly=True):
-    M = pool.get("ir.module")
-    for name in ("health_admin_profiles", "health_user_person"):
-        print([(x.name, x.state) for x in M.search([("name", "=", name)])])
-PY
+sudo systemctl restart "$SERVICIO"
+systemctl is-active "$SERVICIO"
+journalctl -u "$SERVICIO" -n 30 --no-pager
 ```
 
-Debe mostrar `activated` para los dos módulos.
+Después entrá a GNU Health desde el navegador (la misma dirección de siempre),
+elegí la **base de pruebas** en el inicio de sesión y recargá con `Ctrl+F5`.
 
 ---
 
-## 9. Cosas a tener en cuenta
+## 9. Dónde se ve cada cosa (menús en español)
 
-- No copies `__pycache__/` ni archivos `.pyc` al repo. Se pueden borrar antes de
-  empaquetar.
-- No copies las capturas de pantalla ni PDFs dentro de los módulos.
-- `health_admin_profiles` depende de que estén instalados `health_lab`,
-  `health_imaging`, `health_orthanc`, `health_dentistry`, `health_gyneco`,
-  `health_pediatrics`, `health_surgery`, `health_inpatient`, `account`, `stock`
-  y `purchase`.
-- `health_user_person` depende de `health` y `party`.
-- No tocar `health50`. Todo se prueba en `bd_desarrollo`.
-- No hay contraseñas en este README ni en el código.
-- Si el repo de prácticas ya tiene otros módulos, no los pises: copiá solo las
-  carpetas nuevas o hacé un backup antes.
+| Qué | Dónde |
+|---|---|
+| Perfiles de puesto | Salud > Configuración > **Perfiles de puesto** |
+| Historial de cambios de perfil | Salud > Configuración > **Historial de perfiles** |
+| Áreas de especialidad | Salud > Configuración > Misc > **Áreas de especialidad** |
+| Área de cada especialidad | Salud > Configuración > Misc > Especialidades Médicas |
+| Perfil en el usuario | Administración > Usuarios > Usuarios > pestaña de permisos: **Perfil de puesto**, **Grupos otorgados por el perfil**, **Grupos extra** |
+| Persona del usuario | Administración > Usuarios > Usuarios > campo **Persona** (arriba) |
+| Botón de especialidad | Salud > Profesionales de la salud > abrir un profesional > **Aplicar permisos de la especialidad** |
+| Alta de persona | Terceros > Personas > nueva: bloque **Datos de alta** |
+
+**Prueba rápida:**
+
+1. En un usuario de prueba elegí el perfil "Recepción": los grupos se completan
+   al instante (antes de guardar).
+2. Agregale un grupo a mano, guardá y cambiá el perfil a "Médico/a": el grupo
+   manual tiene que quedar.
+3. En "Perfiles de puesto" editá un perfil y guardá: tiene que dejar.
+4. Creá una persona sin email: tiene que pedirlo.
+
+Los botones "Aplicar a usuarios" y "Aplicar permisos de la especialidad" solo
+los puede usar el grupo `Administration`.
+
+---
+
+## 10. Si algo sale mal
+
+| Síntoma | Qué hacer |
+|---|---|
+| El paso 7 dice que no encuentra un módulo propio | El enlace del paso 6 falta o apunta mal: `ls -l "$TRYTON_MODULES" \| grep -E "health_admin\|health_user\|persona_"`. |
+| El paso 7 falla en un módulo de GNU Health (por ejemplo `health_orthanc`) | Puede necesitar paquetes de Python que la VM no tiene. Pasale el final del log a quien administre la VM. |
+| Los cambios no aparecen en la web | Falta el reinicio del paso 8, o estás en otra base: elegí la de pruebas al iniciar sesión. |
+| La ficha de usuario o de persona da error después de actualizar | Reiniciá el servidor (paso 8) y recargá con `Ctrl+F5`. |
+| Hay que volver atrás | Quien administre la VM restaura el backup del paso 4. |
+
+---
+
+## Referencia: VM de prácticas
+
+- Repo compartido: host `/srv/datos/gnuhealth/proyecto_equipo`, VM
+  `/media/sf_proyecto_equipo` (los módulos van en `modulos_propios/`, así que
+  ahí `MODULOS_DIR=/media/sf_proyecto_equipo/modulos_propios`).
+- Base de pruebas: `bd_desarrollo`. La base principal `health50` no se toca.
+- Servicio: `gnuhealth.service`.
+- En esa VM la carpeta de módulos de Tryton pertenece al usuario `gnuhealth`,
+  así que el enlace del paso 6 se hace sin `sudo`.
 
 ---
 
@@ -308,29 +286,33 @@ contra la base:
 - "Aplicar a usuarios" y el cambio de perfil **sincronizan de verdad**: quitan
   los grupos que se sacaron del perfil, agregan los nuevos y no tocan los
   agregados a mano. El usuario muestra "Grupos otorgados por el perfil".
+- Al elegir un perfil en la ficha del usuario, los grupos se ven al instante.
 - Los botones "Aplicar a usuarios" y "Aplicar permisos de la especialidad"
   solo los puede usar el grupo `Administration`.
 - `health_user_person`: la búsqueda por Persona resuelve "sin persona" y
   "con persona".
 - Ambos módulos tienen pruebas en `tests/` (`ModuleTestCase`).
 
-Si ya tenías una versión anterior instalada: actualizá con `trytond-admin -u`
-(sección 5) y reiniciá el servidor (sección 6).
+Si ya tenías una versión anterior instalada: reemplazá las carpetas (paso 5),
+actualizá con el paso 7 y reiniciá (paso 8).
 
 ---
 
-## 10. Contenido de este repositorio
+## Contenido de este repositorio
 
 ```text
 .
-├── README.md
-├── modulos_nuevos.tar.gz
+├── README.md                  (esta guía)
+├── modulos_nuevos.tar.gz      (los seis módulos, listos para descomprimir)
 ├── .gitignore
 └── modulos_propios/
-    ├── health_admin_profiles/
-    ├── health_user_person/
+    ├── health_admin_profiles/      (con tests/, README.md e INFORME.md)
+    ├── health_user_person/         (con tests/ y README.md)
     ├── persona_datos_obligatorios/
     ├── persona_tipo_sangre/
     ├── persona_tipos_documento/
     └── persona_alta_ordenada/
 ```
+
+Cada carpeta de módulo tiene su `tryton.cfg`. Dentro de `modulos_propios/` no
+tiene que haber nada que no sea un módulo de Tryton.
