@@ -175,3 +175,19 @@ Para poner el módulo plenamente a disposición de los usuarios finales en el en
    git add modulos_propios/health_admin_profiles
    git commit -m "docs(health_admin_profiles): agregar README completo e informe de verificacion"
    ```
+
+## 6. Revisión independiente y correcciones (2026-11-05)
+
+Una revisión posterior, con pruebas contra `bd_desarrollo` en transacciones
+revertidas, encontró:
+
+| Hallazgo | Gravedad | Estado |
+|---|---|---|
+| El administrador no podía editar perfiles ni áreas base (datos sin `noupdate`) | Alta | Corregido con `noupdate="1"` y migración |
+| "Aplicar a usuarios" solo agregaba grupos; no quitaba los sacados del perfil | Media | Corregido con el registro `profile_groups` |
+| `write` con varios pares solo aplicaba el perfil al primero | Baja | Corregido |
+| El informe decía que los botones usaban `ir.model.button`, pero no existía ninguno | Baja | Corregido: ahora existen, restringidos a `Administration` |
+| Sin pruebas en `tests/` | Baja | Agregadas (sin ejecutar con el runner) |
+
+Resultado tras las correcciones: 18 de 18 casos OK con el motor real. El
+detalle está en la sección 8 del README.

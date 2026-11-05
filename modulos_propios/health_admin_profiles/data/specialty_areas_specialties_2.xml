@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <tryton>
-    <data>
+    <data noupdate="1">
         <record model="gnuhealth.specialty.area-specialty" id="area_cirugia_s_04">
             <field name="area" ref="area_cirugia"/>
             <field name="specialty" search="[('code', '=', 'ENT')]"/>

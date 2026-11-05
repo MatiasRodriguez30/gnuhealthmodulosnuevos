@@ -165,7 +165,7 @@ Dentro de la VM:
 TRYTON_MODULES=/opt/gnuhealth/his-50/venv/lib/python3.11/site-packages/trytond/modules
 REPO_VM=/media/sf_proyecto_equipo
 
-for m in health_admin_profiles health_user_person; do
+for m in health_admin_profiles health_user_person \n         persona_datos_obligatorios persona_tipo_sangre \n         persona_tipos_documento persona_alta_ordenada; do
     if [ ! -e "$TRYTON_MODULES/$m" ]; then
         ln -s "$REPO_VM/modulos_propios/$m" "$TRYTON_MODULES/$m"
     fi
@@ -181,11 +181,16 @@ ls -l "$TRYTON_MODULES/health_admin_profiles" "$TRYTON_MODULES/health_user_perso
 El enlace tiene que apuntar a la carpeta real del módulo. No uses `ln -f` si ya
 existe: primero revisá qué hay.
 
+En una VM nueva (por ejemplo, la del hospital) revisá quién es dueño de la
+carpeta de módulos de Tryton: si no es el usuario con el que trabajás, el
+enlace lo tiene que crear quien administre la VM.
+
 ---
 
 ## 5. Activar en la base de pruebas
 
-Siempre en `bd_desarrollo`:
+Siempre en la base de pruebas (`bd_desarrollo` en la VM de prácticas; en otra
+VM, cambiá `-d` por el nombre de su base de pruebas):
 
 ```bash
 TRYTON_ADMIN=/opt/gnuhealth/his-50/venv/bin/trytond-admin
@@ -289,6 +294,28 @@ Debe mostrar `activated` para los dos módulos.
 - No hay contraseñas en este README ni en el código.
 - Si el repo de prácticas ya tiene otros módulos, no los pises: copiá solo las
   carpetas nuevas o hacé un backup antes.
+
+---
+
+## Novedades del 2026-11-05
+
+Correcciones de `health_admin_profiles` después de una revisión con pruebas
+contra la base:
+
+- Los perfiles y áreas que vienen cargados ahora **se pueden editar** desde la
+  interfaz (antes Tryton los bloqueaba como configuración base). Si el módulo
+  ya estaba instalado, la actualización (`-u`) los marca como editables.
+- "Aplicar a usuarios" y el cambio de perfil **sincronizan de verdad**: quitan
+  los grupos que se sacaron del perfil, agregan los nuevos y no tocan los
+  agregados a mano. El usuario muestra "Grupos otorgados por el perfil".
+- Los botones "Aplicar a usuarios" y "Aplicar permisos de la especialidad"
+  solo los puede usar el grupo `Administration`.
+- `health_user_person`: la búsqueda por Persona resuelve "sin persona" y
+  "con persona".
+- Ambos módulos tienen pruebas en `tests/` (`ModuleTestCase`).
+
+Si ya tenías una versión anterior instalada: actualizá con `trytond-admin -u`
+(sección 5) y reiniciá el servidor (sección 6).
 
 ---
 

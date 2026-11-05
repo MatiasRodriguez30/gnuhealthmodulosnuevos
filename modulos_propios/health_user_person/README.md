@@ -27,3 +27,13 @@ se descartó porque duplicaba esa funcionalidad.
 ```
 
 No activar en `health50` sin autorización.
+
+## Revisión y correcciones (2026-11-05)
+
+- La búsqueda por el campo Persona ahora resuelve `= None` (usuarios sin
+  persona vinculada) y `!= None` (usuarios con persona).
+- `tests/__init__.py` con `ModuleTestCase` y una prueba de vincular, buscar y
+  desvincular. No se corrió con el runner de Tryton.
+- Verificado con el motor real de Tryton (transacción revertida): vincula,
+  busca por id, por nombre, con y sin persona, y desvincula; rechaza lo que no
+  es persona y la misma persona para dos usuarios.

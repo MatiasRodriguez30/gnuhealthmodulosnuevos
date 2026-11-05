@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <tryton>
-    <data>
+    <data noupdate="1">
 
         <record model="gnuhealth.admin.profile" id="profile_recepcion">
             <field name="code">RECEPCION</field>

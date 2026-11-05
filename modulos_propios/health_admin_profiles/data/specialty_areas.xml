@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <tryton>
-    <data>
+    <data noupdate="1">
         <record model="gnuhealth.specialty.area" id="area_atencion_primaria">
             <field name="code">ATENCION_PRIMARIA</field>
             <field name="name">Atención Primaria y Medicina General</field>

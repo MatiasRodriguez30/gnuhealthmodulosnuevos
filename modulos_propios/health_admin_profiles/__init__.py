@@ -10,6 +10,7 @@ def register():
         admin_profile.AdminProfileLog,
         admin_profile.AdminProfileLogGroupAdded,
         admin_profile.AdminProfileLogGroupRemoved,
+        admin_profile.AdminProfileUserGroup,
         admin_profile.ApplyProfileStart,
         specialty_area.SpecialtyArea,
         specialty_area.SpecialtyAreaGroup,

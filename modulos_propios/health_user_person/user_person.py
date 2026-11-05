@@ -47,6 +47,13 @@ class User(metaclass=PoolMeta):
     def search_person(cls, name, clause):
         Party = Pool().get('party.party')
         _, operator, operand = clause
+        if operand is None and operator in ('=', '!='):
+            # Usuarios sin persona vinculada (=) o con persona (!=)
+            con_persona = [p.internal_user.id for p in Party.search([
+                        ('internal_user', '!=', None),
+                        ])]
+            return [('id', 'not in' if operator == '=' else 'in',
+                    con_persona)]
         if operator in ('=', 'in'):
             ids = operand if operator == 'in' else (
                 [operand] if operand else [])

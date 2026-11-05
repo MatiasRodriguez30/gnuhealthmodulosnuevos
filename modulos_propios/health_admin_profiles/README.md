@@ -209,3 +209,54 @@ Para activar o actualizar el módulo en la base de datos de pruebas `bd_desarrol
 - **Renderizado visual en clientes**: No se validó la interfaz visual ni la interacción en el cliente web (SAO) ni en el cliente de escritorio Tryton mediante un navegador o sesión interactiva humana.
 - **Reinicio del servidor de aplicaciones Tryton**: No se ha ejecutado el reinicio del servicio Tryton (`trytond`) en la VM (queda pendiente para el usuario administrador).
 - **Base de datos productiva**: No se probó ni activó en `health50` (por protocolo estricto del proyecto).
+
+## 8. Revisión y correcciones (2026-11-05)
+
+Cambios hechos tras una revisión independiente del módulo:
+
+1. **Perfiles y áreas base editables.** Antes, los datos de `data/*.xml` se
+   cargaban sin `noupdate` y Tryton los bloqueaba como "configuración base":
+   ni el administrador podía cambiar un nombre, quitar un grupo de un perfil
+   o mover una especialidad de área. Ahora los XML usan `noupdate="1"` y
+   `AdminProfile.__register__` incluye una migración que marca como editables
+   los registros ya cargados (solo los de este módulo). Consecuencia: cambios
+   futuros en esos XML no pisan lo que el administrador haya editado.
+2. **Sincronización real de perfiles.** Nuevo campo `profile_groups` en el
+   usuario (modelo `gnuhealth.admin.profile.user-res.group`) que registra los
+   grupos que le otorgó el perfil. Cambiar o quitar el perfil y el botón
+   "Aplicar a usuarios" **quitan** los grupos que el perfil ya no tiene,
+   **agregan** los nuevos y **no tocan** los agregados a mano. "Aplicar a
+   usuarios" solo deja historial de los usuarios que cambiaron. Para usuarios
+   que recibieron el perfil con la versión anterior, la primera vez se toman
+   como otorgados los grupos del perfil que ya tienen; desde ahí queda
+   registrado.
+3. **`write` con varios pares** (usuarios, valores): ahora procesa todos, no
+   solo el primero.
+4. **Botones restringidos.** "Aplicar a usuarios" y "Aplicar permisos de la
+   especialidad" se declaran con `ir.model.button` y solo los puede usar el
+   grupo `Administration` (otro usuario recibe `AccessButtonError`).
+5. **Pruebas.** `tests/__init__.py` con `ModuleTestCase` y cinco pruebas
+   (cambio y quita de perfil, sincronización, perfiles que comparten un grupo,
+   write con varios pares, datos base editables). No se corrieron con el
+   runner de Tryton.
+6. **Vista previa en el formulario.** Al elegir el perfil de puesto en la
+   ficha del usuario, se ven al instante los grupos que va a tener
+   (`on_change_admin_profile`); al guardar, el servidor hace el mismo cálculo.
+7. **Perfiles que comparten grupos.** El registro de grupos otorgados se
+   escribe por diferencia, para no perder un grupo que está en el perfil
+   anterior y en el nuevo.
+
+### Verificación de las correcciones (2026-11-05)
+
+- Activación en `bd_desarrollo`: OK. La migración dejó los 141 registros base
+  (11 perfiles, 26 relaciones perfil-grupo, 11 áreas, 19 relaciones
+  área-grupo y 74 área-especialidad) como editables.
+- Pruebas con el motor real de Tryton en transacciones revertidas: 19 de 19
+  OK (cambio entre perfiles que comparten un grupo, vista previa al elegir el
+  perfil, edición de datos base, alta/cambio/quita con grupo manual, write con
+  dos pares, sincronización que quita y agrega, historial sin ruido, usuario
+  con perfil de la versión anterior, botón de especialidad, seguridad de
+  botones y de escritura, campo Persona y regresión de la vista de persona).
+- **No verificado:** las pruebas de `tests/` con el runner de Tryton y la
+  vista renderizada en el cliente web. Después de actualizar hay que
+  reiniciar el servidor (`sudo systemctl restart gnuhealth.service`).

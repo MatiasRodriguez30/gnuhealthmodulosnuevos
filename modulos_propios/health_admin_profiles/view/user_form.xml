@@ -4,6 +4,8 @@
         <group col="2" id="admin_profile_group">
             <label name="admin_profile"/>
             <field name="admin_profile"/>
+            <label name="profile_groups"/>
+            <field name="profile_groups"/>
             <label name="extra_groups"/>
             <field name="extra_groups" readonly="1"/>
         </group>
